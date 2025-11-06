@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notenmanager", "Notenmanager\Notenmanager.csproj", "{BD02234E-F300-4EBC-8679-E552B1AB6785}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD02234E-F300-4EBC-8679-E552B1AB6785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD02234E-F300-4EBC-8679-E552B1AB6785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD02234E-F300-4EBC-8679-E552B1AB6785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD02234E-F300-4EBC-8679-E552B1AB6785}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29F95F43-A830-4047-BD4B-A5157450C9EC}
+	EndGlobalSection
+EndGlobal
