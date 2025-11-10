@@ -13,12 +13,17 @@ namespace Notenmanager
     {
         private string filePath;
         private JsonDocument document;
+        private Dictionary<string, object> data;
         public FileHandler(string filePath) 
         {
             this.filePath = filePath;
         }
 
-        public bool ConvertDocument(Dictionary<string, object> data)
+        public void SetData(Dictionary<string, object> d)
+        {
+            this.data = d;
+        }
+        public bool ConvertDocument()
         {
             // TODO Methode implementieren
             //document = new JsonDocument();
