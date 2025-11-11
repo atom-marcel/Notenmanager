@@ -9,35 +9,38 @@ using Terminal.Gui;
 
 namespace Notenmanager
 {
-    public partial class FileHandler
+    internal class FileHandler
     {
         private string filePath;
-        private JsonDocument document;
-        private Dictionary<string, object> data;
+        public NotenmanagerData Data;
         public FileHandler(string filePath) 
         {
             this.filePath = filePath;
+            Data = new NotenmanagerData(filePath);
         }
-
-        public void SetData(Dictionary<string, object> d)
+        public string ConvertDataToString()
         {
-            this.data = d;
-        }
-        public bool ConvertDocument()
-        {
-            // TODO Methode implementieren
-            //document = new JsonDocument();
-            return false;
+            return Data.Serialize();
         }
 
         public void Save()
         {
-            // TODO Methode implementieren
+            string jsonData = ConvertDataToString();
+            File.WriteAllText(filePath, jsonData);
         }
 
-        public void Load()
+        public bool Load()
         {
-            // TODO Methode implementieren
+            string jsonData = File.ReadAllText(filePath);
+
+            bool couldLoad = Data.Deserialize(jsonData);
+
+            if(!couldLoad)
+            {
+                MessageBox.Query("Info", "Konnte die Datei nicht richtig einlesen. Versuchen Sie eine .json Datei, die mit dem Notenmanager erstellt wurde, zu laden!");
+            }
+
+            return couldLoad;
         }
     }
 }

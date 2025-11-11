@@ -12,7 +12,7 @@ using Terminal.Gui;
 // -----------------------------------------------------------------------------
 namespace Notenmanager
 {
-    public partial class MainView : Terminal.Gui.Window
+    partial class MainView : Terminal.Gui.Window
     {
         private Label title;
         private Dictionary<string, Button> buttons = new Dictionary<string, Button>();

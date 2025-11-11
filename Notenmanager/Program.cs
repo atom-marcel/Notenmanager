@@ -22,6 +22,7 @@ namespace Notenmanager
             Normal = Application.Driver.MakeAttribute(Color.Red, Color.Gray),
             HotNormal = Application.Driver.MakeAttribute(Color.Red, Color.Gray)
         };
+
         static void Main(string[] args)
         {
             Application.Init();

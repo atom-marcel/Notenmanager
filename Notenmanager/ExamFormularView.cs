@@ -12,8 +12,15 @@ namespace Notenmanager
     {
         private List<string> subjects;
         private List<string> learningFields;
+        public Exam? CurrentExam;
+        public string? NewSubject;
+        public string? NewLearningField;
+        private int Percent;
         public ExamFormularView(List<string> listSubjects, List<string> listLearningFields)
         {
+            CurrentExam = null;
+            NewSubject = null;
+            NewLearningField = null;
             subjects = listSubjects;
             learningFields = listLearningFields;
             this.InitializeComponent();
@@ -27,6 +34,12 @@ namespace Notenmanager
             if(validated)
             {
                 MessageBox.Query("Info", "Klausur wird erstellt...", "Okay");
+                CurrentExam = new Exam();
+                CurrentExam.Percent = Percent;
+                CurrentExam.Subject = subject.SearchText.ToString();
+                CurrentExam.LearningField = learningField.SearchText.ToString();
+                CurrentExam.Date = dateField.Date.ToString("yyyy-MM-dd");
+                this.RequestStop();
             }
         }
         private bool ValidateFields()
@@ -65,6 +78,7 @@ namespace Notenmanager
                 if(sel == 0)
                 {
                     MessageBox.Query("Info", "Erstelle neues Thema", "Okay");
+                    NewSubject = subject.SearchText.ToString();
                 }
             }
 
@@ -74,8 +88,11 @@ namespace Notenmanager
                 if (sel == 0)
                 {
                     MessageBox.Query("Info", "Erstelle neues Lernfeld", "Okay");
+                    NewLearningField = learningField.SearchText.ToString();
                 }
             }
+
+            Percent = numberPercent;
 
             return true;
         }

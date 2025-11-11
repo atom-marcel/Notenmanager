@@ -10,19 +10,51 @@ using Terminal.Gui;
 // -----------------------------------------------------------------------------
 namespace Notenmanager
 {
-    public partial class MainView
+    partial class MainView
     {
+        public NotenmanagerData CurrentData;
+        public string CurrentFilePath;
         public MainView()
         {
             InitializeComponent();
+            CurrentFilePath = "Notenmanager.json";
+            CurrentData = new NotenmanagerData(CurrentFilePath);
             buttons["exit"].Clicked += OnExitClicked;
             buttons["addExam"].Clicked += OnExamAddClicked;
             buttons["load"].Clicked += OnLoadClicked;
             buttons["save"].Clicked += OnSaveClicked;
 
+            buttons["listSubjects"].Clicked += OnListSubjectsClicked;
+            buttons["listLearningFields"].Clicked += OnListLearningFieldsClicked;
+
             // Export Button noch nicht implementiert, also visuell ausblenden
             buttons["export"].CanFocus = false;
             buttons["export"].ColorScheme = Program.GLOBAL_CS_ERROR;
+        }
+
+        private void OnListSubjectsClicked()
+        {
+            string[] subjects = CurrentData.GetSubjects().ToArray();
+            string text = "";
+            foreach(string subject in subjects)
+            {
+                text += subject + "\n";
+            }
+
+            MessageBox.Query("Alle Themen", text);
+        }
+
+        private void OnListLearningFieldsClicked()
+        {
+            string[] learningFields = CurrentData.GetLearningFields().ToArray();
+            string text = "";
+
+            foreach(string learningField in learningFields)
+            {
+                text += learningField + "\n";
+            }
+
+            MessageBox.Query("Alle Lernfelder", text);
         }
 
         private void OnLoadClicked()
@@ -31,38 +63,55 @@ namespace Notenmanager
             Application.Run(d);
             if(!d.Canceled)
             {
-                // TODO Lade die Datei in das Programm.
-                MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde ausgewählt.");
+                FileHandler fh = new FileHandler(d.FilePath.ToString());
+                bool couldLoad = fh.Load();
+           
+                if (couldLoad)
+                {
+                    CurrentData = fh.Data;
+                    MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde geladen.");
+                }
             }
         }
 
         private void OnSaveClicked()
         {
             FileDialog d = new SaveDialog("Speichern", "Wählen Sie einen Speicherort aus, in dem der Notenmanager die Daten speichern soll.");
+            d.FilePath = CurrentFilePath;
             Application.Run(d);
             if (!d.Canceled)
             {
-                // TODO Speichere die ausgewählte Datei vom Programm.
-                MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde ausgewählt");
+                FileHandler fh = new FileHandler(CurrentFilePath);
+                fh.Data = CurrentData;
+                fh.Save();
+                MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde gespeichert");
             }
         }
         private void OnExamAddClicked()
         {
-            string[] lf =
-            {
-                "Lernfeld1",
-                "Lernfeld2",
-                "LernfeldX",
-            };
+            ExamFormularView view = new ExamFormularView(CurrentData.GetSubjects().ToList(), CurrentData.GetLearningFields().ToList());
+            Application.Run(view);
 
-            string[] s =
+            if(view.CurrentExam != null)
             {
-               "Thema1",
-               "Thema2",
-               "Thema3",
-               "ThemaX",
-            };
-            Application.Run(new ExamFormularView(new List<string>(s), new List<string>(lf)));
+                CurrentData.AddExam(view.CurrentExam);
+            }
+
+            if(view.NewSubject != null)
+            {
+                if(!CurrentData.HasSubject(view.NewSubject))
+                {
+                    CurrentData.AddSubject(view.NewSubject);
+                }
+            }
+
+            if(view.NewLearningField != null)
+            {
+                if(!CurrentData.HasLearningField(view.NewLearningField))
+                {
+                    CurrentData.AddLearningField(view.NewLearningField);
+                }
+            }
         }
 
         private void OnExitClicked()
