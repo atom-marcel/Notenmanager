@@ -39,7 +39,7 @@ namespace Notenmanager
                 CurrentExam.Subject = subject.SearchText.ToString();
                 CurrentExam.LearningField = learningField.SearchText.ToString();
                 CurrentExam.Date = dateField.Date;
-                CurrentExam.name = name.Text.ToString();
+                CurrentExam.Name = name.Text.ToString();
                 this.RequestStop();
             }
         }

@@ -21,6 +21,7 @@ namespace Notenmanager
             CurrentData = new NotenmanagerData();
             CurrentData.learningFields = new List<string>();
             CurrentData.subjects = new List<string>();
+            CurrentData.exams = new List<Exam>();
 
             buttons["exit"].Clicked += OnExitClicked;
             buttons["addExam"].Clicked += OnExamAddClicked;
@@ -35,6 +36,23 @@ namespace Notenmanager
             buttons["export"].ColorScheme = Program.GLOBAL_CS_ERROR;
         }
 
+        private void ChangeState(string state)
+        {
+            switch (state)
+            {
+                case "loaded":
+                    status.Text = "Datei geladen und aktuell";
+                    status.ColorScheme = Program.GLOBAL_CS_TITLE;
+                    break;
+                case "saved":
+                    
+                    break;
+                case "examAdded":
+                    break;
+                case "added":
+                    break;
+            }
+        }
         private void OnListSubjectsClicked()
         {
             string[] subjects = CurrentData.subjects.ToArray();
@@ -67,11 +85,14 @@ namespace Notenmanager
             if(!d.Canceled)
             {
                 FileHandler fh = new FileHandler(d.FilePath.ToString());
-                NotenmanagerData? couldLoad = fh.Load();
+                NotenmanagerData? data = fh.Load();
            
-                if (couldLoad != null)
+                if (data != null)
                 {
-                    CurrentData = couldLoad;
+                    CurrentData = data;
+                    currentPath.Text = d.FilePath.ToString();
+                    lastChanged.Text = "Letzte Änderung: " + CurrentData.changeDate.ToString("dd.MM.yyyy - HH:mm");
+                    ChangeState("loaded");
                     MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde geladen.");
                 }
             }
@@ -88,6 +109,8 @@ namespace Notenmanager
                 fh.Data = CurrentData;
                 fh.Save();
                 MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde gespeichert");
+                status.Text = "Datei gespeichert und aktuell";
+                status.ColorScheme = Program.GLOBAL_CS_TITLE;
             }
         }
         private void OnExamAddClicked()

@@ -13,6 +13,6 @@ namespace Notenmanager
         public DateTime Date { get; set; } = DateTime.Now;
         public string Subject { get; set; } = "";
         public string LearningField { get; set; } = "";
-        public string name { get; set; } = "";
+        public string Name { get; set; } = "";
     }
 }

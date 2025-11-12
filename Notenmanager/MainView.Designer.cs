@@ -15,6 +15,10 @@ namespace Notenmanager
     partial class MainView : Terminal.Gui.Window
     {
         private Label title;
+        private Label currentPath;
+        private Label lastChanged;
+        private Label status;
+
         private Dictionary<string, Button> buttons = new Dictionary<string, Button>();
         private string[] buttonNames =
         {
@@ -46,16 +50,37 @@ namespace Notenmanager
         private void InitializeComponent()
         {
             title = new Label("Notenmanager Hauptmenü");
+            currentPath = new Label("Keine Datei ausgewählt.");
+            lastChanged = new Label("Letzte Änderung: ");
 
-            int count = buttonIDs.Length;
+            int count = buttonIDs.Length + 4;
             int offset = (count / 2) * -1;
             int i = 0;
 
             title.X = Pos.Center();
-            title.Y = Pos.Center() + (offset - 2);
+            title.Y = Pos.Center() + (offset);
             title.ColorScheme = Program.GLOBAL_CS_TITLE;
             this.Add(title);
-            
+            offset++;
+
+            status = new Label("Keine Datei geladen");
+            status.X = Pos.Center();
+            status.Y = Pos.Center() + offset;
+            status.ColorScheme = Program.GLOBAL_CS_ERROR;
+            offset += 2;
+
+            currentPath.X = Pos.Center();
+            currentPath.Y = Pos.Center() + offset;
+            currentPath.ColorScheme = Program.GLOBAL_CS_TITLE;
+            this.Add(currentPath);
+            offset++;
+
+            lastChanged.X = Pos.Center();
+            lastChanged.Y = Pos.Center() + offset;
+            lastChanged.ColorScheme = Program.GLOBAL_CS_TITLE;
+            this.Add(lastChanged);
+            offset += 2;
+
             foreach(string key in buttonIDs)
             {
                 buttons[key] = new Button(buttonNames[i]);
