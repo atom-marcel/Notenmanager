@@ -38,7 +38,8 @@ namespace Notenmanager
                 CurrentExam.Percent = Percent;
                 CurrentExam.Subject = subject.SearchText.ToString();
                 CurrentExam.LearningField = learningField.SearchText.ToString();
-                CurrentExam.Date = dateField.Date.ToString("yyyy-MM-dd");
+                CurrentExam.Date = dateField.Date;
+                CurrentExam.name = name.Text.ToString();
                 this.RequestStop();
             }
         }

@@ -18,7 +18,10 @@ namespace Notenmanager
         {
             InitializeComponent();
             CurrentFilePath = "Notenmanager.json";
-            CurrentData = new NotenmanagerData(CurrentFilePath);
+            CurrentData = new NotenmanagerData();
+            CurrentData.learningFields = new List<string>();
+            CurrentData.subjects = new List<string>();
+
             buttons["exit"].Clicked += OnExitClicked;
             buttons["addExam"].Clicked += OnExamAddClicked;
             buttons["load"].Clicked += OnLoadClicked;
@@ -34,7 +37,7 @@ namespace Notenmanager
 
         private void OnListSubjectsClicked()
         {
-            string[] subjects = CurrentData.GetSubjects().ToArray();
+            string[] subjects = CurrentData.subjects.ToArray();
             string text = "";
             foreach(string subject in subjects)
             {
@@ -46,7 +49,7 @@ namespace Notenmanager
 
         private void OnListLearningFieldsClicked()
         {
-            string[] learningFields = CurrentData.GetLearningFields().ToArray();
+            string[] learningFields = CurrentData.learningFields.ToArray();
             string text = "";
 
             foreach(string learningField in learningFields)
@@ -64,11 +67,11 @@ namespace Notenmanager
             if(!d.Canceled)
             {
                 FileHandler fh = new FileHandler(d.FilePath.ToString());
-                bool couldLoad = fh.Load();
+                NotenmanagerData? couldLoad = fh.Load();
            
-                if (couldLoad)
+                if (couldLoad != null)
                 {
-                    CurrentData = fh.Data;
+                    CurrentData = couldLoad;
                     MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde geladen.");
                 }
             }
@@ -89,27 +92,27 @@ namespace Notenmanager
         }
         private void OnExamAddClicked()
         {
-            ExamFormularView view = new ExamFormularView(CurrentData.GetSubjects().ToList(), CurrentData.GetLearningFields().ToList());
+            ExamFormularView view = new ExamFormularView(CurrentData.subjects.ToList(), CurrentData.learningFields.ToList());
             Application.Run(view);
 
             if(view.CurrentExam != null)
             {
-                CurrentData.AddExam(view.CurrentExam);
+                CurrentData.exams.Add(view.CurrentExam);
             }
 
             if(view.NewSubject != null)
             {
-                if(!CurrentData.HasSubject(view.NewSubject))
+                if(!CurrentData.subjects.Contains(view.NewSubject))
                 {
-                    CurrentData.AddSubject(view.NewSubject);
+                    CurrentData.subjects.Add(view.NewSubject);
                 }
             }
 
             if(view.NewLearningField != null)
             {
-                if(!CurrentData.HasLearningField(view.NewLearningField))
+                if(!CurrentData.learningFields.Contains(view.NewLearningField))
                 {
-                    CurrentData.AddLearningField(view.NewLearningField);
+                    CurrentData.learningFields.Add(view.NewLearningField);
                 }
             }
         }

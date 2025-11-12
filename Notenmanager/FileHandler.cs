@@ -16,11 +16,11 @@ namespace Notenmanager
         public FileHandler(string filePath) 
         {
             this.filePath = filePath;
-            Data = new NotenmanagerData(filePath);
+            Data = new NotenmanagerData();
         }
         public string ConvertDataToString()
         {
-            return Data.Serialize();
+            return JsonSerializer.Serialize(Data, new JsonSerializerOptions() { WriteIndented = true });
         }
 
         public void Save()
@@ -29,18 +29,20 @@ namespace Notenmanager
             File.WriteAllText(filePath, jsonData);
         }
 
-        public bool Load()
+        public NotenmanagerData? Load()
         {
-            string jsonData = File.ReadAllText(filePath);
+            StreamReader jsonData = File.OpenText(filePath);
 
-            bool couldLoad = Data.Deserialize(jsonData);
+            NotenmanagerData? data = JsonSerializer.Deserialize<NotenmanagerData>(jsonData.BaseStream);
 
-            if(!couldLoad)
+            jsonData.Close();
+
+            if(data == null)
             {
                 MessageBox.Query("Info", "Konnte die Datei nicht richtig einlesen. Versuchen Sie eine .json Datei, die mit dem Notenmanager erstellt wurde, zu laden!");
             }
 
-            return couldLoad;
+            return data;
         }
     }
 }

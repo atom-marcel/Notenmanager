@@ -12,6 +12,7 @@ namespace Notenmanager
         private Label title;
         private Label date;
         private TextField percent;
+        private TextField name;
         private ComboBox subject;
         private ComboBox learningField;
         private Dictionary<string, Label> labels;
@@ -20,6 +21,7 @@ namespace Notenmanager
 
         private string[] fieldIDs =
         {
+            "name",
             "percent",
             "subject",
             "learningField",
@@ -27,6 +29,7 @@ namespace Notenmanager
 
         private string[] labelText =
         {
+            "Name der Klausur:",
             "Prozentpunkte:",
             "Thema:",
             "Lernfeld:"
@@ -56,6 +59,12 @@ namespace Notenmanager
 
                 offset += 2;
             }
+
+            name = new TextField();
+            name.X = labels["name"].X + labels["name"].Text.Length + 1;
+            name.Y = labels["name"].Y;
+            name.Width = 20;
+            this.Add(name);
 
             percent = new TextField();
             percent.X = labels["percent"].X + labels["percent"].Text.Length + 1;
