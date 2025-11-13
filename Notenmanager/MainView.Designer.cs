@@ -67,6 +67,7 @@ namespace Notenmanager
             status.X = Pos.Center();
             status.Y = Pos.Center() + offset;
             status.ColorScheme = Program.GLOBAL_CS_ERROR;
+            this.Add(status);
             offset += 2;
 
             currentPath.X = Pos.Center();

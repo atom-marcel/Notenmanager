@@ -23,6 +23,12 @@ namespace Notenmanager
             HotNormal = Application.Driver.MakeAttribute(Color.Red, Color.Gray)
         };
 
+        public static ColorScheme GLOBAL_CS_FINE = new ColorScheme()
+        {
+            Normal = Application.Driver.MakeAttribute(Color.BrightGreen, Color.Black),
+            HotNormal = Application.Driver.MakeAttribute(Color.BrightGreen, Color.Black)
+        };
+
         static void Main(string[] args)
         {
             Application.Init();

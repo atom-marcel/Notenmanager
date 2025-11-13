@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Notenmanager
 {
-    public partial class ExamsView
+    partial class ExamsView
     {
+        private List<Exam> Exams;
+        public ExamsView(List<Exam> exams)
+        {
+            Exams = exams;
+            InitializeComponent();
+        }
     }
 }

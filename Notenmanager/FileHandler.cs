@@ -26,6 +26,7 @@ namespace Notenmanager
         public void Save()
         {
             Data.changeDate = DateTime.Now;
+            Data.name = Path.GetFileNameWithoutExtension(filePath);
             string jsonData = ConvertDataToString();
             File.WriteAllText(filePath, jsonData);
         }

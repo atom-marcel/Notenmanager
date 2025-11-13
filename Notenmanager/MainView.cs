@@ -28,6 +28,7 @@ namespace Notenmanager
             buttons["load"].Clicked += OnLoadClicked;
             buttons["save"].Clicked += OnSaveClicked;
 
+            buttons["listExams"].Clicked += OnExamListClicked;
             buttons["listSubjects"].Clicked += OnListSubjectsClicked;
             buttons["listLearningFields"].Clicked += OnListLearningFieldsClicked;
 
@@ -42,14 +43,19 @@ namespace Notenmanager
             {
                 case "loaded":
                     status.Text = "Datei geladen und aktuell";
-                    status.ColorScheme = Program.GLOBAL_CS_TITLE;
+                    status.ColorScheme = Program.GLOBAL_CS_FINE;
                     break;
                 case "saved":
-                    
+                    status.Text = "Datei gespeichert und aktuell";
+                    status.ColorScheme = Program.GLOBAL_CS_FINE;
                     break;
                 case "examAdded":
+                    status.Text = "Neue Klausuren wurden erstellt, aber noch nicht abgespeichert!";
+                    status.ColorScheme = Program.GLOBAL_CS_ERROR;
                     break;
                 case "added":
+                    status.Text = "Es wurden neue Elemente hinzugefügt, aber noch nicht abgespeichert!";
+                    status.ColorScheme = Program.GLOBAL_CS_ERROR;
                     break;
             }
         }
@@ -108,9 +114,8 @@ namespace Notenmanager
                 FileHandler fh = new FileHandler(CurrentFilePath);
                 fh.Data = CurrentData;
                 fh.Save();
+                ChangeState("saved");
                 MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde gespeichert");
-                status.Text = "Datei gespeichert und aktuell";
-                status.ColorScheme = Program.GLOBAL_CS_TITLE;
             }
         }
         private void OnExamAddClicked()
@@ -121,6 +126,7 @@ namespace Notenmanager
             if(view.CurrentExam != null)
             {
                 CurrentData.exams.Add(view.CurrentExam);
+                ChangeState("examAdded");
             }
 
             if(view.NewSubject != null)
@@ -128,6 +134,7 @@ namespace Notenmanager
                 if(!CurrentData.subjects.Contains(view.NewSubject))
                 {
                     CurrentData.subjects.Add(view.NewSubject);
+                    ChangeState("added");
                 }
             }
 
@@ -136,6 +143,7 @@ namespace Notenmanager
                 if(!CurrentData.learningFields.Contains(view.NewLearningField))
                 {
                     CurrentData.learningFields.Add(view.NewLearningField);
+                    ChangeState("added");
                 }
             }
         }
@@ -143,6 +151,11 @@ namespace Notenmanager
         private void OnExitClicked()
         {
             Application.RequestStop();
+        }
+
+        private void OnExamListClicked()
+        {
+            Application.Run(new ExamsView(CurrentData.exams));
         }
     }
 }
