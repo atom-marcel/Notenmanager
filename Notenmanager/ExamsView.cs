@@ -13,6 +13,12 @@ namespace Notenmanager
         {
             Exams = exams;
             InitializeComponent();
+            close.Clicked += OnCloseClicked;
+        }
+
+        private void OnCloseClicked()
+        {
+            this.RequestStop();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Notenmanager
     partial class ExamsView : Window
     {
         private TableView main;
+        private Button close;
 
         private void InitializeComponent()
         {
@@ -39,7 +40,7 @@ namespace Notenmanager
             main.Y = 0;
 
             main.Width = Dim.Fill();
-            main.Height = Dim.Fill() - 1;
+            main.Height = Dim.Fill() - 2;
 
             main.Table = dt;
 
@@ -58,7 +59,7 @@ namespace Notenmanager
                 X = 0,
                 Y = 0,
                 Width = 1,
-                Height = Dim.Fill(),
+                Height = Dim.Fill() - 1,
                 StartingAnchor = '┌',
                 EndingAnchor = '└',
             };
@@ -68,10 +69,16 @@ namespace Notenmanager
                 X = Pos.Right(main) - 1,
                 Y = 0,
                 Width = 1,
-                Height = Dim.Fill(),
+                Height = Dim.Fill() - 1,
                 StartingAnchor = '┐',
                 EndingAnchor = '┘',
             };
+
+            close = new Button("Schließen");
+            close.X = Pos.Left(main);
+            close.Y = Pos.Bottom(main) + 1;
+            close.Width = Dim.Fill();
+            close.Height = 1;
 
             this.ColorScheme = Program.GLOBAL_CS;
             this.AutoSize = true;
@@ -80,6 +87,7 @@ namespace Notenmanager
             this.Add(line);
             this.Add(lineLeft);
             this.Add(lineRight);
+            this.Add(close);
         }
     }
 }
