@@ -33,11 +33,24 @@ namespace Notenmanager
 
         public NotenmanagerData? Load()
         {
-            StreamReader jsonData = File.OpenText(filePath);
+            string jsonData = File.ReadAllText(filePath);
+            NotenmanagerData? data = null;
+            try
+            {
+                data = JsonSerializer.Deserialize<NotenmanagerData>(jsonData);
 
-            NotenmanagerData? data = JsonSerializer.Deserialize<NotenmanagerData>(jsonData.BaseStream);
-
-            jsonData.Close();
+                if(data.subjects == null || 
+                    data.learningFields == null || 
+                    data.exams == null || 
+                    data.changeDate == DateTime.MinValue)
+                {
+                    data = null;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.ErrorQuery("Warning", e.Message);
+            }
 
             if(data == null)
             {
