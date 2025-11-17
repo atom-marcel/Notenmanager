@@ -39,7 +39,7 @@ namespace Notenmanager
             int countFields = fieldIDs.Length;
             int offset = (countFields / 2) * -1 - 2;
 
-            title = new Label("Klausur hinzufügen");
+            title = new Label("Klausur bearbeiten");
             title.ColorScheme = Program.GLOBAL_CS_TITLE;
             title.X = Pos.Center();
             title.Y = Pos.Center() + offset;
@@ -113,7 +113,7 @@ namespace Notenmanager
             this.Border.DrawMarginFrame = true;
             this.TextAlignment = Terminal.Gui.TextAlignment.Left;
             this.ColorScheme = Program.GLOBAL_CS;
-            this.Title = "Crtl-Q drücken um zum Hauptmenü zu gelangen";
+            this.Title = "Crtl-Q drücken um den Klausureneditor zu schließen";
 
             this.Add(submit);
         }

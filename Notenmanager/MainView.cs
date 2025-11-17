@@ -155,7 +155,14 @@ namespace Notenmanager
 
         private void OnExamListClicked()
         {
-            Application.Run(new ExamsView(CurrentData.exams));
+            ExamsView examsView = new ExamsView(CurrentData.subjects, CurrentData.learningFields, CurrentData.exams);
+            Application.Run(examsView);
+
+            if(examsView.NewExamList != null)
+            {
+                this.CurrentData.exams = examsView.NewExamList;
+                ChangeState("examAdded");
+            }
         }
     }
 }

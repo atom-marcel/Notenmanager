@@ -16,20 +16,11 @@ namespace Notenmanager
 
         private void InitializeComponent()
         {
-            this.main = new TableView();
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("Klausurname");
-            dt.Columns.Add("Prozent");
-            dt.Columns.Add("Thema");
-            dt.Columns.Add("Lernfeld");
-            dt.Columns.Add("Datum");
-
-            foreach(Exam e in Exams)
-            {
-                dt.Rows.Add(e.Name, e.Percent.ToString(), e.Subject, e.LearningField, e.Date.ToString("dd.MM.yy"));
-            }
             
+            this.main = new TableView();
+            
+            UpdateExamTable();
+
             main.Style.AlwaysShowHeaders = true;
             main.AutoSize = true;
             main.FullRowSelect = true;
@@ -42,7 +33,7 @@ namespace Notenmanager
             main.Width = Dim.Fill();
             main.Height = Dim.Fill() - 2;
 
-            main.Table = dt;
+            main.Update();
 
             LineView line = new LineView(Orientation.Horizontal)
             {
@@ -88,6 +79,25 @@ namespace Notenmanager
             this.Add(lineLeft);
             this.Add(lineRight);
             this.Add(close);
+        }
+
+        private void UpdateExamTable()
+        {
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Klausurname");
+            dt.Columns.Add("Prozent");
+            dt.Columns.Add("Thema");
+            dt.Columns.Add("Lernfeld");
+            dt.Columns.Add("Datum");
+
+            foreach (Exam e in Exams)
+            {
+                dt.Rows.Add(e.Name, e.Percent.ToString(), e.Subject, e.LearningField, e.Date.ToString("dd.MM.yy"));
+            }
+
+            main.Table = dt;
+            main.Update();
         }
     }
 }

@@ -27,6 +27,25 @@ namespace Notenmanager
             submit.Clicked += OnSaveClicked;
         }
 
+        public ExamFormularView(List<string> listSubjects, List<string> listLearningFields, Exam exam)
+        {
+            CurrentExam = null;
+            NewSubject = null;
+            NewLearningField = null;
+            subjects = listSubjects;
+            learningFields = listLearningFields;
+            this.InitializeComponent();
+
+            // Exam-Felder hinzufügen
+            name.Text = exam.Name;
+            percent.Text = exam.Percent.ToString();
+            dateField.Date = exam.Date;
+            subject.SearchText = exam.Subject;
+            learningField.SearchText = exam.LearningField;
+
+            submit.Clicked += OnSaveClicked;
+        }
+
         private void OnSaveClicked()
         {
             bool validated = ValidateFields();
