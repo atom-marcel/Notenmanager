@@ -16,6 +16,15 @@ namespace Notenmanager
         private List<string> LearningFields;
 
         public List<Exam>? NewExamList;
+
+        List<string> filterNames = new List<string>()
+        {
+            "Name",
+            "Prozent",
+            "Datum",
+            "Thema",
+            "Lernfeld"
+        };
         public ExamsView(List<string> subjects, List<string> learningFields, List<Exam> exams)
         {
             Exams = exams;
@@ -25,12 +34,14 @@ namespace Notenmanager
             InitializeComponent();
             close.Clicked += OnCloseClicked;
             main.CellActivated += OnExamElementSelected;
+            sort.Clicked += OnSortClicked;
         }
 
         private void OnExamElementSelected(TableView.CellActivatedEventArgs args)
         {
             Object[] row = args.Table.Rows[args.Row].ItemArray;
 
+            // Neue Klausur mit den Angaben aus der Tabelle anlegen
             Exam ex = new Exam()
             {
                 Name = row[0].ToString(),
@@ -55,6 +66,15 @@ namespace Notenmanager
         private void OnCloseClicked()
         {
             this.RequestStop();
+        }
+
+        private void OnSortClicked()
+        {
+            int f = filterNames.IndexOf(filter.SearchText.ToString());
+            ExamFilter eFilter = (ExamFilter)f;
+            Exams = Program.SortExams(Exams, eFilter);
+            NewExamList = Exams;
+            UpdateExamTable();
         }
     }
 }

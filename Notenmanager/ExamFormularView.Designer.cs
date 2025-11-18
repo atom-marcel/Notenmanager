@@ -17,6 +17,7 @@ namespace Notenmanager
         private ComboBox learningField;
         private Dictionary<string, Label> labels;
         private Button submit;
+        private Button cancel;
         private DateField dateField;
 
         private string[] fieldIDs =
@@ -37,7 +38,7 @@ namespace Notenmanager
         private void InitializeComponent()
         {
             int countFields = fieldIDs.Length;
-            int offset = (countFields / 2) * -1 - 2;
+            int offset = ((countFields / 2) * - 1) - 4;
 
             title = new Label("Klausur bearbeiten");
             title.ColorScheme = Program.GLOBAL_CS_TITLE;
@@ -100,7 +101,7 @@ namespace Notenmanager
             this.Add(dateField);
 
             submit = new Button("Speichern");
-            submit.X = Pos.Center();
+            submit.X = Pos.Center() - submit.Text.Length - 4;
             submit.Y = Pos.Center() + offset;
 
             this.Width = Dim.Fill(0);
@@ -116,6 +117,11 @@ namespace Notenmanager
             this.Title = "Crtl-Q drücken um den Klausureneditor zu schließen";
 
             this.Add(submit);
+
+            cancel = new Button("Abbrechen");
+            cancel.X = Pos.Center() + 4;
+            cancel.Y = Pos.Center() + offset;
+            Add(cancel);
         }
     }
 }

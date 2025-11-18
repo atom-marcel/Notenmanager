@@ -18,16 +18,21 @@ namespace Notenmanager
         private int Percent;
         public ExamFormularView(List<string> listSubjects, List<string> listLearningFields)
         {
-            CurrentExam = null;
-            NewSubject = null;
-            NewLearningField = null;
-            subjects = listSubjects;
-            learningFields = listLearningFields;
-            this.InitializeComponent();
-            submit.Clicked += OnSaveClicked;
+            Init(listSubjects, listLearningFields);
         }
 
         public ExamFormularView(List<string> listSubjects, List<string> listLearningFields, Exam exam)
+        {
+            Init(listSubjects, listLearningFields);
+            // Exam-Felder hinzufügen
+            name.Text = exam.Name;
+            percent.Text = exam.Percent.ToString();
+            dateField.Date = exam.Date;
+            subject.SearchText = exam.Subject;
+            learningField.SearchText = exam.LearningField;
+        }
+
+        private void Init(List<string> listSubjects, List<string> listLearningFields)
         {
             CurrentExam = null;
             NewSubject = null;
@@ -35,15 +40,8 @@ namespace Notenmanager
             subjects = listSubjects;
             learningFields = listLearningFields;
             this.InitializeComponent();
-
-            // Exam-Felder hinzufügen
-            name.Text = exam.Name;
-            percent.Text = exam.Percent.ToString();
-            dateField.Date = exam.Date;
-            subject.SearchText = exam.Subject;
-            learningField.SearchText = exam.LearningField;
-
             submit.Clicked += OnSaveClicked;
+            cancel.Clicked += OnCancelClicked;
         }
 
         private void OnSaveClicked()
@@ -115,6 +113,11 @@ namespace Notenmanager
             Percent = numberPercent;
 
             return true;
+        }
+
+        private void OnCancelClicked()
+        {
+            this.RequestStop();
         }
     }
 }

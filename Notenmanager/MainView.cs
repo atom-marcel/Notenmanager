@@ -68,7 +68,7 @@ namespace Notenmanager
                 text += subject + "\n";
             }
 
-            MessageBox.Query("Alle Themen", text);
+            MessageBox.Query("Alle Themen", text, "Okay");
         }
 
         private void OnListLearningFieldsClicked()
@@ -81,7 +81,7 @@ namespace Notenmanager
                 text += learningField + "\n";
             }
 
-            MessageBox.Query("Alle Lernfelder", text);
+            MessageBox.Query("Alle Lernfelder", text, "Okay");
         }
 
         private void OnLoadClicked()
@@ -99,7 +99,7 @@ namespace Notenmanager
                     currentPath.Text = d.FilePath.ToString();
                     lastChanged.Text = "Letzte Änderung: " + CurrentData.changeDate.ToString("dd.MM.yyyy - HH:mm");
                     ChangeState("loaded");
-                    MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde geladen.");
+                    MessageBox.Query("Info", $"Die Datei:\n\"{d.FilePath}\"\nwurde geladen.", "Okay");
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace Notenmanager
                 fh.Data = CurrentData;
                 fh.Save();
                 ChangeState("saved");
-                MessageBox.Query("Info", $"Die Datei: \"{d.FilePath}\" wurde gespeichert");
+                MessageBox.Query("Info", $"Die Datei:\n\"{d.FilePath}\"\nwurde gespeichert", "Okay");
             }
         }
         private void OnExamAddClicked()

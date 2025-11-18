@@ -13,6 +13,8 @@ namespace Notenmanager
     {
         private TableView main;
         private Button close;
+        private Button sort;
+        private ComboBox filter;
 
         private void InitializeComponent()
         {
@@ -66,9 +68,8 @@ namespace Notenmanager
             };
 
             close = new Button("Schließen");
-            close.X = Pos.Left(main);
+            close.X = 0;
             close.Y = Pos.Bottom(main) + 1;
-            close.Width = Dim.Fill();
             close.Height = 1;
 
             this.ColorScheme = Program.GLOBAL_CS;
@@ -79,6 +80,19 @@ namespace Notenmanager
             this.Add(lineLeft);
             this.Add(lineRight);
             this.Add(close);
+
+            sort = new Button("Sortieren");
+            sort.X = Pos.Right(main) - sort.Text.Length;
+            sort.Y = Pos.Bottom(main) + 1;
+            Add(sort);
+
+            filter = new ComboBox(filterNames);
+            filter.X = Pos.Right(main) - sort.Text.Length - 20;
+            filter.Y = Pos.Bottom(main) + 1;
+            filter.Width = 15;
+            filter.Height = 5;
+            filter.SelectedItem = 0;
+            Add(filter);
         }
 
         private void UpdateExamTable()
