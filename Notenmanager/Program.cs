@@ -92,6 +92,11 @@ namespace Notenmanager
 
         public static List<Exam> SortExams(List<Exam> list, ExamFilter filter)
         {
+            if(list.Count < 2)
+            {
+                return list;
+            }
+
             for (int i = list.Count - 1; i > 0; i--)
             {
                 object s1;
@@ -141,7 +146,7 @@ namespace Notenmanager
                         list[i] = tmp;
                         i += 2;
 
-                        if (i > list.Count - 1) i = list.Count - 1;
+                        if (i > list.Count) i = list.Count;
                     }
                 }
 
@@ -155,10 +160,9 @@ namespace Notenmanager
                         list[i] = tmp;
                         i += 2;
 
-                        if (i > list.Count - 1) i = list.Count - 1;
+                        if (i > list.Count) i = list.Count;
                     }
                 }
-
             }
 
             return list;
