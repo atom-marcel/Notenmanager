@@ -43,7 +43,7 @@ namespace Notenmanager
             LineView line = new LineView(Orientation.Horizontal)
             {
                 X = 0,
-                Y = Pos.Bottom(main),
+                Y = Pos.Bottom(main) - 1,
                 Width = Dim.Fill(),
                 Height = 1,
                 StartingAnchor = '└',

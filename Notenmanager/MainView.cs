@@ -31,6 +31,8 @@ namespace Notenmanager
             buttons["listExams"].Clicked += OnExamListClicked;
             buttons["listSubjects"].Clicked += OnListSubjectsClicked;
             buttons["listLearningFields"].Clicked += OnListLearningFieldsClicked;
+            buttons["addSubject"].Clicked += OnSubjectAddClicked;
+            buttons["addLearningField"].Clicked += OnLearningFieldAddClicked;
 
             // Export Button noch nicht implementiert, also visuell ausblenden
             buttons["export"].CanFocus = false;
@@ -163,6 +165,75 @@ namespace Notenmanager
                 this.CurrentData.exams = examsView.NewExamList;
                 ChangeState("examAdded");
             }
+        }
+
+        private string? GetStringDialog(string title, string infoText)
+        {
+            Button save = new Button("Speichern");
+            Button cancel = new Button("Abbrechen");
+
+            Button[] buttons = { save, cancel };
+
+            Dialog d = new Dialog(title, buttons);
+
+            Label info = new Label();
+            info.Text = infoText;
+            info.X = Pos.Center() - info.Text.Length;
+            info.Y = Pos.Center();
+            d.Add(info);
+
+            TextField input = new TextField();
+            input.X = Pos.Center() + 1;
+            input.Y = Pos.Center();
+            input.Width = 20;
+            input.Height = 1;
+            d.Add(input);
+
+
+            string? userText = null;
+
+            save.Clicked += () =>
+            {
+                userText = input.Text.ToString();
+                d.RequestStop();
+            };
+
+            cancel.Clicked += () =>
+            {
+                d.RequestStop();
+            };
+
+            Application.Run(d);
+
+            if(string.IsNullOrEmpty(userText))
+            {
+                return null;
+            }
+
+            return userText;
+        }
+
+        private void OnStringDialogSaveClicked()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSubjectAddClicked()
+        {
+            string userInput = GetStringDialog("Thema hinzufügen", "Bitte geben Sie das Thema ein: ");
+            
+            if(string.IsNullOrEmpty(userInput)) { return; }
+
+            this.CurrentData.subjects.Add(userInput);
+        }
+
+        private void OnLearningFieldAddClicked()
+        {
+            string userInput = GetStringDialog("Lernfeld hinzufügen", "Bitte geben Sie das Lernfeld ein: ");
+
+            if(string.IsNullOrEmpty(userInput)) { return; }
+
+            this.CurrentData.learningFields.Add(userInput);
         }
     }
 }
