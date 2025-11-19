@@ -90,7 +90,7 @@ namespace Notenmanager
             return num1 - num2;
         }
 
-        public static List<Exam> SortExams(List<Exam> list, ExamFilter filter)
+        public static List<Exam> SortExams(List<Exam> list, ExamFilter filter, bool desc = false)
         {
             if(list.Count < 2)
             {
@@ -164,6 +164,8 @@ namespace Notenmanager
                     }
                 }
             }
+
+            if (desc) list.Reverse();
 
             return list;
         }

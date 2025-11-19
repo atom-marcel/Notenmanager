@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NStack;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Notenmanager
         private Button sort;
         private ComboBox filter;
 
+        private RadioGroup Order;
+
         private void InitializeComponent()
         {
             
@@ -30,10 +33,10 @@ namespace Notenmanager
             main.RowOffset = 0;
 
             main.X = 0;
-            main.Y = 0;
+            main.Y = 2;
 
             main.Width = Dim.Fill();
-            main.Height = Dim.Fill() - 2;
+            main.Height = Dim.Fill();
 
             main.Update();
 
@@ -50,9 +53,9 @@ namespace Notenmanager
             LineView lineLeft = new LineView(Orientation.Vertical)
             {
                 X = 0,
-                Y = 0,
+                Y = 2,
                 Width = 1,
-                Height = Dim.Fill() - 1,
+                Height = Dim.Fill(),
                 StartingAnchor = '┌',
                 EndingAnchor = '└',
             };
@@ -60,16 +63,16 @@ namespace Notenmanager
             LineView lineRight = new LineView(Orientation.Vertical)
             {
                 X = Pos.Right(main) - 1,
-                Y = 0,
+                Y = 2,
                 Width = 1,
-                Height = Dim.Fill() - 1,
+                Height = Dim.Fill(),
                 StartingAnchor = '┐',
                 EndingAnchor = '┘',
             };
 
             close = new Button("Schließen");
             close.X = 0;
-            close.Y = Pos.Bottom(main) + 1;
+            close.Y = Pos.Top(main) - 1;
             close.Height = 1;
 
             this.ColorScheme = Program.GLOBAL_CS;
@@ -82,17 +85,29 @@ namespace Notenmanager
             this.Add(close);
 
             sort = new Button("Sortieren");
-            sort.X = Pos.Right(main) - sort.Text.Length;
-            sort.Y = Pos.Bottom(main) + 1;
+            sort.X = Pos.Right(main) - sort.Text.Length - 4;
+            sort.Y = Pos.Top(main) - 1;
             Add(sort);
 
             filter = new ComboBox(filterNames);
             filter.X = Pos.Right(main) - sort.Text.Length - 20;
-            filter.Y = Pos.Bottom(main) + 1;
+            filter.Y = Pos.Top(main) - 1;
             filter.Width = 15;
             filter.Height = 5;
             filter.SelectedItem = 0;
+            
             Add(filter);
+
+            ustring[] orderNames =
+            {
+                "Aufsteigend",
+                "Absteigend"
+            };
+            Order = new RadioGroup(orderNames);
+            Order.X = Pos.Left(filter) - orderNames[0].Length * 2 - 8;
+            Order.Y = Pos.Top(main) - 2;
+            Order.DisplayMode = DisplayModeLayout.Horizontal;
+            Add(Order);
         }
 
         private void UpdateExamTable()

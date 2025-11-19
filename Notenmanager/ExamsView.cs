@@ -72,7 +72,9 @@ namespace Notenmanager
         {
             int f = filterNames.IndexOf(filter.SearchText.ToString());
             ExamFilter eFilter = (ExamFilter)f;
-            Exams = Program.SortExams(Exams, eFilter);
+            bool desc = false;
+            if (Order.SelectedItem == 1) desc = true; 
+            Exams = Program.SortExams(Exams, eFilter, desc);
             NewExamList = Exams;
             UpdateExamTable();
         }
