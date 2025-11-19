@@ -175,6 +175,9 @@ namespace Notenmanager
             Button[] buttons = { save, cancel };
 
             Dialog d = new Dialog(title, buttons);
+            d.Width = Dim.Percent(80);
+            d.Height = Dim.Percent(25);
+
 
             Label info = new Label();
             info.Text = infoText;
