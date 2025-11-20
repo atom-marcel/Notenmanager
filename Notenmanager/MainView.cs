@@ -63,27 +63,12 @@ namespace Notenmanager
         }
         private void OnListSubjectsClicked()
         {
-            string[] subjects = CurrentData.subjects.ToArray();
-            string text = "";
-            foreach(string subject in subjects)
-            {
-                text += subject + "\n";
-            }
-
-            MessageBox.Query("Alle Themen", text, "Okay");
+            Application.Run(new OverviewAndGraph(CurrentData.subjects));
         }
 
         private void OnListLearningFieldsClicked()
         {
-            string[] learningFields = CurrentData.learningFields.ToArray();
-            string text = "";
-
-            foreach(string learningField in learningFields)
-            {
-                text += learningField + "\n";
-            }
-
-            MessageBox.Query("Alle Lernfelder", text, "Okay");
+            Application.Run(new OverviewAndGraph(CurrentData.learningFields));
         }
 
         private void OnLoadClicked()
