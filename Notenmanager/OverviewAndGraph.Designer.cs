@@ -8,11 +8,10 @@ using Terminal.Gui.Graphs;
 
 namespace Notenmanager
 {
-    partial class OverviewAndGraph : Window
+    public partial class OverviewAndGraph : Window
     {
-        List<string> subjectList;
-
-        Dictionary<string, List<int>> subjectToPercents;
+        private List<string> subjectList;
+        private Dictionary<string, Dictionary<string, int>> subjectToPercents;
 
         ListView mainView;
         GraphView secView;
@@ -26,12 +25,18 @@ namespace Notenmanager
             mainView.Height = Dim.Fill();
             Add(mainView);
 
-            BarSeries bs = new BarSeries();
-            bs.Bars.Add(new BarSeries.Bar("Test", new GraphCellToRender('X'), 50));
-            bs.Bars.Add(new BarSeries.Bar("Test2", new GraphCellToRender('X'), 75));
+
+            GraphCellToRender graphCellToRender = new GraphCellToRender('|');
+            BarSeries bs = new BarSeries()
+            {
+                Bars = new List<BarSeries.Bar>()
+                {
+                }
+            };
+
             bs.Orientation = Orientation.Vertical;
             bs.Offset = 0;
-            bs.BarEvery = 1;
+            bs.BarEvery = 8;
             bs.DrawLabels = true;
 
             secView = new GraphView();
@@ -41,13 +46,10 @@ namespace Notenmanager
             secView.Width = Dim.Fill();
             secView.Height = Dim.Fill();
 
-            secView.CellSize = new PointF(1, 0.1f);
-            bs.DrawSeries(secView, secView.Bounds, new RectangleF(0,0, 5, 100));
-
+            secView.CellSize = new PointF(1, 4);
             
             Add(secView);
-
-            secView.Redraw(secView.Bounds);
+            secView.Series.Add(bs);
 
             this.Title = "Strg-Q drücken um zum Hauptmenü zu gelangen";
             this.ColorScheme = Program.GLOBAL_CS;

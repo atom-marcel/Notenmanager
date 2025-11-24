@@ -63,14 +63,60 @@ namespace Notenmanager
         }
         private void OnListSubjectsClicked()
         {
-            Application.Run(new OverviewAndGraph(CurrentData.subjects));
+            Dictionary<string, Dictionary<string, int>> subjectPercents = GetSubjectPercents(CurrentData.subjects, 1);
+            Application.Run(new OverviewAndGraph(CurrentData.subjects, subjectPercents));
         }
 
         private void OnListLearningFieldsClicked()
         {
-            Application.Run(new OverviewAndGraph(CurrentData.learningFields));
+            Dictionary<string, Dictionary<string, int>> subjectPercents = GetSubjectPercents(CurrentData.learningFields, 2);
+            Application.Run(new OverviewAndGraph(CurrentData.learningFields, subjectPercents));
         }
 
+        private Dictionary<string, Dictionary<string, int>> GetSubjectPercents(List<string> subjects, int mode = 1)
+        {
+            Dictionary<string, Dictionary<string, int>> result = new Dictionary<string, Dictionary<string, int>>();
+
+            foreach(string subj in subjects)
+            {
+                switch (mode)
+                {
+                    case 1:
+                        foreach(Exam e in CurrentData.exams)
+                        {
+                            if(e.Subject == subj)
+                            {
+                                if(!result.ContainsKey(subj))
+                                {
+                                    result[subj] = new Dictionary<string, int>();
+                                }
+                                string examName = e.Name;
+                                int percent = e.Percent;
+                                result[subj][examName] = percent;
+                            }
+                        }
+                        break;
+
+                    case 2:
+                        foreach(Exam e in CurrentData.exams)
+                        {
+                            if(e.LearningField == subj)
+                            {
+                                if(!result.ContainsKey(subj))
+                                {
+                                    result[subj] = new Dictionary<string, int>();
+                                }
+                                string examName = e.Name;
+                                int percent = e.Percent;
+                                result[subj][examName] = percent;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            return result;
+        }
         private void OnLoadClicked()
         {
             FileDialog d = new OpenDialog("Laden", "Wählen Sie eine Datei aus die der Notenmanager die Daten laden soll.");
