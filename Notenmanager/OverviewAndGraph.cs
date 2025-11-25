@@ -21,6 +21,8 @@ namespace Notenmanager
             this.InitializeComponent();
 
             mainView.SelectedItemChanged += MainViewSelectedItemChanged;
+
+            mainView.SelectedItem = 0;
         }
 
         private void MainViewSelectedItemChanged(ListViewItemEventArgs args)
@@ -42,6 +44,7 @@ namespace Notenmanager
 
             secView.Series.Clear();
             secView.Series.Add(bs);
+            secView.ScrollOffset = new PointF(-5, -10);
         }
     }
 }
