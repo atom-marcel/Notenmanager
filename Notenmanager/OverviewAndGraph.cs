@@ -38,13 +38,13 @@ namespace Notenmanager
                 bs.Bars.Add(new BarSeries.Bar(k, new GraphCellToRender('#'), stp[k]));
             }
 
-            bs.Orientation = Orientation.Vertical;
+            bs.Orientation = Orientation.Horizontal;
             bs.Offset = 0;
-            bs.BarEvery = 10;
+            bs.BarEvery = 2;
 
             secView.Series.Clear();
             secView.Series.Add(bs);
-            secView.ScrollOffset = new PointF(-5, -10);
+            secView.ScrollOffset = new PointF(-20, -10);
         }
     }
 }

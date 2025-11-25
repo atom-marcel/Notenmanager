@@ -36,7 +36,7 @@ namespace Notenmanager
 
             bs.Orientation = Orientation.Vertical;
             bs.Offset = 0;
-            bs.BarEvery = 8;
+            bs.BarEvery = 1;
             bs.DrawLabels = true;
 
             secView = new GraphView();
@@ -46,7 +46,7 @@ namespace Notenmanager
             secView.Width = Dim.Fill();
             secView.Height = Dim.Fill();
 
-            secView.CellSize = new PointF(1, 4);
+            secView.CellSize = new PointF(1.5f, 1.2f);
             
             Add(secView);
             secView.ScrollOffset = new PointF(-5, -10);
