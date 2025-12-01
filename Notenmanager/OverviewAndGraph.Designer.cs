@@ -49,7 +49,7 @@ namespace Notenmanager
             secView.CellSize = new PointF(1.5f, 1.2f);
             
             Add(secView);
-            secView.ScrollOffset = new PointF(-5, -10);
+            secView.ScrollOffset = new PointF(-5, -5);
             secView.Series.Add(bs);
 
             this.Title = "Strg-Q drücken um zum Hauptmenü zu gelangen";

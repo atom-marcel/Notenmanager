@@ -44,7 +44,7 @@ namespace Notenmanager
 
             secView.Series.Clear();
             secView.Series.Add(bs);
-            secView.ScrollOffset = new PointF(-20, -10);
+            secView.ScrollOffset = new PointF(-20, -5);
         }
     }
 }
