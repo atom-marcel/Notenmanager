@@ -144,7 +144,7 @@ namespace Notenmanager
             Application.Run(d);
             if (!d.Canceled)
             {
-                FileHandler fh = new FileHandler(CurrentFilePath);
+                FileHandler fh = new FileHandler(d.FilePath.ToString());
                 fh.Data = CurrentData;
                 fh.Save();
                 ChangeState("saved");
