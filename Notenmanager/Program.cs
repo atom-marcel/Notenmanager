@@ -45,9 +45,9 @@ namespace Notenmanager
 
         public static bool FindStringList(List<string> list, string match)
         {
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if(list[i] == match)
+                if (list[i] == match)
                 {
                     return true;
                 }
@@ -59,14 +59,14 @@ namespace Notenmanager
         public static int CompareStrings(string s1, string s2)
         {
             int lowestStringLength = s1.Length;
-            if(s1.Length > s2.Length)
+            if (s1.Length > s2.Length)
             {
                 lowestStringLength = s2.Length;
             }
 
-            for(int i = 0; i < lowestStringLength; i++)
+            for (int i = 0; i < lowestStringLength; i++)
             {
-                if((int)s1[i] < (int)s2[i])
+                if ((int)s1[i] < (int)s2[i])
                 {
                     return -1;
                 }
@@ -77,7 +77,7 @@ namespace Notenmanager
                 }
             }
 
-            if(s1.Length < s2.Length)
+            if (s1.Length < s2.Length)
             {
                 return -1;
             }
@@ -92,7 +92,7 @@ namespace Notenmanager
 
         public static List<Exam> SortExams(List<Exam> list, ExamFilter filter, bool desc = false)
         {
-            if(list.Count < 2)
+            if (list.Count < 2)
             {
                 return list;
             }
@@ -136,7 +136,7 @@ namespace Notenmanager
                         break;
                 }
 
-                if(type == "string")
+                if (type == "string")
                 {
                     if (CompareStrings((string)s1, (string)s2) > 0)
                     {
@@ -150,9 +150,9 @@ namespace Notenmanager
                     }
                 }
 
-                if(type == "num")
+                if (type == "num")
                 {
-                    if(CompareInteger((Int64)s1, (Int64)s2) > 0)
+                    if (CompareInteger((Int64)s1, (Int64)s2) > 0)
                     {
                         // Tausche Listenelemente aus wenn nicht geordnet
                         Exam tmp = list[i - 1];

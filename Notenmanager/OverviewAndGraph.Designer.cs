@@ -14,10 +14,14 @@ namespace Notenmanager
         private Dictionary<string, Dictionary<string, int>> subjectToPercents;
 
         ListView mainView;
+        Button backBtn;
         GraphView secView;
 
         private void InitializeComponent()
         {
+            backBtn = new Button("Schließen");
+            Add(backBtn);
+
             mainView = new ListView(subjectList);
             mainView.X = 0;
             mainView.Y = 0;
@@ -49,7 +53,8 @@ namespace Notenmanager
             secView.CellSize = new PointF(1.5f, 1.2f);
             
             Add(secView);
-            secView.ScrollOffset = new PointF(-5, -5);
+            secView.ScrollOffset = new PointF(-2, -2);
+
             secView.Series.Add(bs);
 
             this.Title = "Strg-Q drücken um zum Hauptmenü zu gelangen";

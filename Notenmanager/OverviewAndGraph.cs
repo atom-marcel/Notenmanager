@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 using Terminal.Gui.Graphs;
 
 namespace Notenmanager
@@ -23,6 +18,8 @@ namespace Notenmanager
             mainView.SelectedItemChanged += MainViewSelectedItemChanged;
 
             mainView.SelectedItem = 0;
+
+            backBtn.Clicked += this.RequestStop;
         }
 
         private void MainViewSelectedItemChanged(ListViewItemEventArgs args)
@@ -33,7 +30,7 @@ namespace Notenmanager
             BarSeries bs = new BarSeries();
             bs.Bars = new List<BarSeries.Bar>();
 
-            foreach(string k in stp.Keys)
+            foreach (string k in stp.Keys)
             {
                 bs.Bars.Add(new BarSeries.Bar(k, new GraphCellToRender('#'), stp[k]));
             }
@@ -44,7 +41,7 @@ namespace Notenmanager
 
             secView.Series.Clear();
             secView.Series.Add(bs);
-            secView.ScrollOffset = new PointF(-20, -5);
+            secView.ScrollOffset = new PointF(-20, -2);
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 
 namespace Notenmanager
 {
@@ -48,7 +42,7 @@ namespace Notenmanager
         {
             bool validated = ValidateFields();
 
-            if(validated)
+            if (validated)
             {
                 MessageBox.Query("Info", "Klausur wird erstellt...", "Okay");
                 CurrentExam = new Exam();
@@ -66,25 +60,25 @@ namespace Notenmanager
             int numberPercent;
             isNumeric = int.TryParse(percent.Text.ToString(), out numberPercent);
 
-            if(!isNumeric)
+            if (!isNumeric)
             {
                 MessageBox.ErrorQuery("Warnung!", "Prozentpunkte ist keine Zahl!", "Okay");
                 return false;
             }
 
-            if(numberPercent < 0 || numberPercent > 100)
+            if (numberPercent < 0 || numberPercent > 100)
             {
                 MessageBox.ErrorQuery("Warnung!", "Die Prozentpunkte sind außerhalb des erlaubten Zahlenbereichs!", "Okay");
                 return false;
             }
 
-            if(subject.SearchText.Length < 1)
+            if (subject.SearchText.Length < 1)
             {
                 MessageBox.ErrorQuery("Warnung!", "Das Thema wurde nicht angegeben!", "Okay");
                 return false;
             }
 
-            if(learningField.SearchText.Length < 1)
+            if (learningField.SearchText.Length < 1)
             {
                 MessageBox.ErrorQuery("Warnung!", "Das Lernfeld wurde nicht angegeben!", "Okay");
                 return false;
@@ -93,14 +87,14 @@ namespace Notenmanager
             if (!Program.FindStringList(subjects, subject.SearchText.ToString()))
             {
                 int sel = MessageBox.Query("Warnung!", $"Das folgende Thema: \"{subject.SearchText.ToString()}\" gibt es noch nicht, möchten Sie dieses Thema erstellen?", "Ja", "Nein");
-                if(sel == 0)
+                if (sel == 0)
                 {
                     MessageBox.Query("Info", "Erstelle neues Thema", "Okay");
                     NewSubject = subject.SearchText.ToString();
                 }
             }
 
-            if(!Program.FindStringList(learningFields, learningField.SearchText.ToString()))
+            if (!Program.FindStringList(learningFields, learningField.SearchText.ToString()))
             {
                 int sel = MessageBox.Query("Warnung!", $"Das folgende Lernfeld: \"{learningField.SearchText.ToString()}\" gibt es noch nicht, möchten Sie dieses Thema erstellen?", "Ja", "Nein");
                 if (sel == 0)

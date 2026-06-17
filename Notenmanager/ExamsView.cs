@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 
 namespace Notenmanager
 {
@@ -53,8 +46,8 @@ namespace Notenmanager
 
             ExamFormularView formular = new ExamFormularView(Subjects, LearningFields, ex);
             Application.Run(formular);
-            
-            if(formular.CurrentExam != null)
+
+            if (formular.CurrentExam != null)
             {
                 Exams[args.Row] = formular.CurrentExam;
                 NewExamList = Exams;
@@ -73,7 +66,7 @@ namespace Notenmanager
             int f = filterNames.IndexOf(filter.SearchText.ToString());
             ExamFilter eFilter = (ExamFilter)f;
             bool desc = false;
-            if (Order.SelectedItem == 1) desc = true; 
+            if (Order.SelectedItem == 1) desc = true;
             Exams = Program.SortExams(Exams, eFilter, desc);
             NewExamList = Exams;
             UpdateExamTable();

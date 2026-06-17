@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using Terminal.Gui;
 
 namespace Notenmanager
@@ -13,7 +7,7 @@ namespace Notenmanager
     {
         private string filePath;
         public NotenmanagerData Data;
-        public FileHandler(string filePath) 
+        public FileHandler(string filePath)
         {
             this.filePath = filePath;
             Data = new NotenmanagerData();
@@ -39,9 +33,9 @@ namespace Notenmanager
             {
                 data = JsonSerializer.Deserialize<NotenmanagerData>(jsonData);
 
-                if(data.subjects == null || 
-                    data.learningFields == null || 
-                    data.exams == null || 
+                if (data.subjects == null ||
+                    data.learningFields == null ||
+                    data.exams == null ||
                     data.changeDate == DateTime.MinValue)
                 {
                     data = null;
@@ -52,7 +46,7 @@ namespace Notenmanager
                 MessageBox.ErrorQuery("Warning", e.Message);
             }
 
-            if(data == null)
+            if (data == null)
             {
                 MessageBox.Query("Info", "Konnte die Datei nicht richtig einlesen. Versuchen Sie eine .json Datei, die mit dem Notenmanager erstellt wurde, zu laden!");
             }

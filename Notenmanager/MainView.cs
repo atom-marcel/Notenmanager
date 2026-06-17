@@ -77,16 +77,16 @@ namespace Notenmanager
         {
             Dictionary<string, Dictionary<string, int>> result = new Dictionary<string, Dictionary<string, int>>();
 
-            foreach(string subj in subjects)
+            foreach (string subj in subjects)
             {
                 switch (mode)
                 {
                     case 1:
-                        foreach(Exam e in CurrentData.exams)
+                        foreach (Exam e in CurrentData.exams)
                         {
-                            if(e.Subject == subj)
+                            if (e.Subject == subj)
                             {
-                                if(!result.ContainsKey(subj))
+                                if (!result.ContainsKey(subj))
                                 {
                                     result[subj] = new Dictionary<string, int>();
                                 }
@@ -98,11 +98,11 @@ namespace Notenmanager
                         break;
 
                     case 2:
-                        foreach(Exam e in CurrentData.exams)
+                        foreach (Exam e in CurrentData.exams)
                         {
-                            if(e.LearningField == subj)
+                            if (e.LearningField == subj)
                             {
-                                if(!result.ContainsKey(subj))
+                                if (!result.ContainsKey(subj))
                                 {
                                     result[subj] = new Dictionary<string, int>();
                                 }
@@ -121,11 +121,11 @@ namespace Notenmanager
         {
             FileDialog d = new OpenDialog("Laden", "Wählen Sie eine Datei aus die der Notenmanager die Daten laden soll.");
             Application.Run(d);
-            if(!d.Canceled)
+            if (!d.Canceled)
             {
                 FileHandler fh = new FileHandler(d.FilePath.ToString());
                 NotenmanagerData? data = fh.Load();
-           
+
                 if (data != null)
                 {
                     CurrentData = data;
@@ -149,6 +149,7 @@ namespace Notenmanager
                 fh.Save();
                 ChangeState("saved");
                 MessageBox.Query("Info", $"Die Datei:\n\"{d.FilePath}\"\nwurde gespeichert", "Okay");
+                lastChanged.Text = "Letzte Änderung: " + fh.Data.changeDate.ToString("dd.MM.yyyy - HH:mm");
             }
         }
         private void OnExamAddClicked()
@@ -156,24 +157,24 @@ namespace Notenmanager
             ExamFormularView view = new ExamFormularView(CurrentData.subjects.ToList(), CurrentData.learningFields.ToList());
             Application.Run(view);
 
-            if(view.CurrentExam != null)
+            if (view.CurrentExam != null)
             {
                 CurrentData.exams.Add(view.CurrentExam);
                 ChangeState("examAdded");
             }
 
-            if(view.NewSubject != null)
+            if (view.NewSubject != null)
             {
-                if(!CurrentData.subjects.Contains(view.NewSubject))
+                if (!CurrentData.subjects.Contains(view.NewSubject))
                 {
                     CurrentData.subjects.Add(view.NewSubject);
                     ChangeState("added");
                 }
             }
 
-            if(view.NewLearningField != null)
+            if (view.NewLearningField != null)
             {
-                if(!CurrentData.learningFields.Contains(view.NewLearningField))
+                if (!CurrentData.learningFields.Contains(view.NewLearningField))
                 {
                     CurrentData.learningFields.Add(view.NewLearningField);
                     ChangeState("added");
@@ -191,7 +192,7 @@ namespace Notenmanager
             ExamsView examsView = new ExamsView(CurrentData.subjects, CurrentData.learningFields, CurrentData.exams);
             Application.Run(examsView);
 
-            if(examsView.NewExamList != null)
+            if (examsView.NewExamList != null)
             {
                 this.CurrentData.exams = examsView.NewExamList;
                 ChangeState("examAdded");
@@ -239,7 +240,7 @@ namespace Notenmanager
 
             Application.Run(d);
 
-            if(string.IsNullOrEmpty(userText))
+            if (string.IsNullOrEmpty(userText))
             {
                 return null;
             }
@@ -255,8 +256,8 @@ namespace Notenmanager
         private void OnSubjectAddClicked()
         {
             string userInput = GetStringDialog("Thema hinzufügen", "Bitte geben Sie das Thema ein: ");
-            
-            if(string.IsNullOrEmpty(userInput)) { return; }
+
+            if (string.IsNullOrEmpty(userInput)) { return; }
 
             this.CurrentData.subjects.Add(userInput);
         }
@@ -265,7 +266,7 @@ namespace Notenmanager
         {
             string userInput = GetStringDialog("Lernfeld hinzufügen", "Bitte geben Sie das Lernfeld ein: ");
 
-            if(string.IsNullOrEmpty(userInput)) { return; }
+            if (string.IsNullOrEmpty(userInput)) { return; }
 
             this.CurrentData.learningFields.Add(userInput);
         }
